@@ -44,8 +44,8 @@ describe('app routes', () => {
       });
   });
 
-  it('gets all custom champs', () => {
-    const champs = Champ.create([
+  it('gets all custom champs', async() => {
+    const champs = await Champ.create([
       { name: 'Megaman', passive: 'Lemons', q_ability: 'Buster Cannon', w_ability: 'Jump n\' Shoot', e_ability: 'Summon Rush', r_ability: 'X Armor' },
       { name: 'Protoman', passive: 'Protoshield', q_ability: 'Buster Sword', w_ability: 'Dash', e_ability: 'Anime Hair', r_ability: 'Slash n\' Dash' },
       { name: 'Rush', passive: 'Good Boy', q_ability: 'Hover Board Form', w_ability: 'Tank Form', e_ability: 'Plane Form', r_ability: 'Mega Bark' }
@@ -54,17 +54,11 @@ describe('app routes', () => {
     return request(app)
       .get('/api/v1/champs')
       .then(res => {
-        champs.forEach(champ => {
-          expect(res.body).toContainEqual({
-            _id: champ._id.toString(),
-            name: champ.name,
-            q_ability: champ.q_ability,
-            w_ability: champ.w_ability,
-            e_ability: champ.e_ability,
-            r_ability: champ.r_ability,
-            __v: 0
-          });
-        });
+        expect(res.body).toEqual([
+          { _id: expect.any(String), name: 'Megaman', passive: 'Lemons', q_ability: 'Buster Cannon', w_ability: 'Jump n\' Shoot', e_ability: 'Summon Rush', r_ability: 'X Armor', __v: 0 },
+          { _id: expect.any(String), name: 'Protoman', passive: 'Protoshield', q_ability: 'Buster Sword', w_ability: 'Dash', e_ability: 'Anime Hair', r_ability: 'Slash n\' Dash', __v: 0 },
+          { _id: expect.any(String), name: 'Rush', passive: 'Good Boy', q_ability: 'Hover Board Form', w_ability: 'Tank Form', e_ability: 'Plane Form', r_ability: 'Mega Bark', __v: 0 }
+        ]);
       });
   });
 });
