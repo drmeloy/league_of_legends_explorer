@@ -1,11 +1,11 @@
 {
-  "name": ".",
+  "name": "lol_explorer",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "jest --verbose --runInBand",
-    "test:watch": "npm run test -- --watch",
+    "tw": "npm run test -- --watch",
     "start": "node server.js",
     "start:watch": "nodemon server.js"
   },
