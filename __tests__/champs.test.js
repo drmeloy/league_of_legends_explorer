@@ -62,8 +62,8 @@ describe('app routes', () => {
       });
   });
 
-  it('gets a custom champ by id', () => {
-    const champ = Champ.create({
+  it('gets a custom champ by id', async() => {
+    const champ = await Champ.create({
       name: 'Megaman',
       passive: 'Lemons',
       q_ability: 'Buster Cannon',
@@ -76,7 +76,8 @@ describe('app routes', () => {
       .get(`/api/v1/champs/${champ._id}`)
       .then(res => {
         expect(res.body).toEqual({
-          _id: champ._id,
+          _id: champ._id.toString(),
+          name: champ.name,
           passive: champ.passive,
           q_ability: champ.q_ability,
           w_ability: champ.w_ability,
