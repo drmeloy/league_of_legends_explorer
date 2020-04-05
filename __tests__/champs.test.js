@@ -114,4 +114,30 @@ describe('app routes', () => {
         });
       });
   });
+
+  it('deletes a champ by id', async() => {
+    const champ = await Champ.create({
+      name: 'Megaman',
+      passive: 'Lemons',
+      q_ability: 'Mega Buster',
+      w_ability: 'Jump n\' Shoot',
+      e_ability: 'Summon Rush',
+      r_ability: 'X Armor',
+    });
+
+    return request(app)
+      .delete(`/api/v1/champs/${champ._id}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          _id: champ._id.toString(),
+          name: 'Megaman',
+          passive: 'Lemons',
+          q_ability: 'Mega Buster',
+          w_ability: 'Jump n\' Shoot',
+          e_ability: 'Summon Rush',
+          r_ability: 'X Armor',
+          __v: 0
+        });
+      });
+  });
 });
